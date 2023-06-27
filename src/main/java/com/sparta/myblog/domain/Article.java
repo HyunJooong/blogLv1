@@ -5,9 +5,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.security.Timestamp;
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,27 +20,21 @@ import java.time.LocalDateTime;
 public class Article {
 
     @Id //primaryKey setting??
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키 자동으로 1씩 증가
     @Column(name = "id", updatable = false)
     private Long id;
 
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "writer", nullable = false)
+    private String writer;
+
+    @Column(name = "password", nullable = false)
+    private Long password;
+
     @Column(name = "content", nullable = false)
     private String content;
-
-    @Builder //builder annotation from lombok
-    public Article(String title, String content) {
-        this.title = title;
-        this.content = content;
-
-    }
-
-    public void update(String title, String content){
-        this.title = title;
-        this.content = content;
-    }
 
     @CreatedDate //엔티티 생성 시간 저장
     @Column(name = "created_at")
@@ -46,6 +44,30 @@ public class Article {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    private String msg; // 삭제 메세지
+
+
+    @Builder //builder annotation from lombok
+    public Article(String title, String writer,
+                   String content, Long password,
+                   LocalDateTime createdAt) {
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.password = password;
+        this.createdAt = createdAt;
+
+    }
+
+    public void update(String title, String content, LocalDateTime updatedAt) {
+        this.title = title;
+        this.content = content;
+        this.updatedAt = updatedAt;
+    }
+
+    public void delete(String msg){
+        this.msg = msg;
+    }
 
 
 }

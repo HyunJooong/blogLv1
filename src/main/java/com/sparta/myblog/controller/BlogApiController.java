@@ -19,17 +19,19 @@ public class BlogApiController {
 
     private final BlogService blogService;
 
+    //게시글 작성(POST)
     @PostMapping("/api/articles")
 
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request){
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
 
         Article savedArticle = blogService.save(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
     }
 
+    // 전체 게시글 가져오기
     @GetMapping("/api/articles")
-    public ResponseEntity<List<ArticleResponse>> findAllArticles(){
+    public ResponseEntity<List<ArticleResponse>> findAllArticles() {
         List<ArticleResponse> articleResponses = blogService.findAll()
                 .stream()
                 .map(ArticleResponse::new)
@@ -38,23 +40,26 @@ public class BlogApiController {
         return ResponseEntity.ok().body(articleResponses);
     }
 
+    //게시글 하나 가져오기
     @GetMapping("/api/articles/{id}")
     //url 경로에서 값 추출
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
         Article article = blogService.findById(id);
 
         return ResponseEntity.ok().body(new ArticleResponse(article));
     }
 
-    @DeleteMapping("/api/articles/{id}")
-    public ResponseEntity<Void> deleteArticle(@PathVariable long id){
-        blogService.delete(id);
+    //게시글 삭제
+    @DeleteMapping("/api/articles/{id}/{password}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id, @PathVariable long password) {
+       blogService.delete(id, password);
 
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/api/articles/{id}")
-    public ResponseEntity<Article> updateArticle(@PathVariable Long id,
+    //게시글 수정
+    @PutMapping("/api/articles/{id}/{password}")
+    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @PathVariable long password,
                                                  @RequestBody UpdateArticleRequest updateArticleRequest) {
         Article updateArticle = blogService.update(id, updateArticleRequest);
 
