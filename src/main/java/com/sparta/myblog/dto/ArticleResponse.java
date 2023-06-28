@@ -8,10 +8,15 @@ import java.time.LocalDateTime;
 @Getter
 public class ArticleResponse {
 
-    private final String title;
-    private final String writer;
-    private final String content;
-    private final LocalDateTime creatAt;
+    private String title;
+    private String content;
+    private String writer;
+    private LocalDateTime creatAt;
+    private LocalDateTime updateAt;
+
+    private String delMsg;
+
+
 
 
     public ArticleResponse(Article article) {
@@ -19,7 +24,12 @@ public class ArticleResponse {
         this.content = article.getContent();
         this.writer = article.getWriter();
         this.creatAt = article.getCreatedAt();
+        this.updateAt = article.getUpdatedAt();
     }
 
+
+    public ArticleResponse(String delMsg){
+        this.delMsg = delMsg;
+    }
 
 }

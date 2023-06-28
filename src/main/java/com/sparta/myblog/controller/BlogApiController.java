@@ -52,14 +52,14 @@ public class BlogApiController {
     //게시글 삭제
     @DeleteMapping("/api/articles/{id}/{password}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id, @PathVariable long password) {
-       blogService.delete(id, password);
+       blogService.delete(id,password);
 
         return ResponseEntity.ok().build();
     }
 
     //게시글 수정
     @PutMapping("/api/articles/{id}/{password}")
-    public ResponseEntity<Article> updateArticle(@PathVariable Long id, @PathVariable long password,
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @PathVariable long password,
                                                  @RequestBody UpdateArticleRequest updateArticleRequest) {
         Article updateArticle = blogService.update(id, updateArticleRequest);
 

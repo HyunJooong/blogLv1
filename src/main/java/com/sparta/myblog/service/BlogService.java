@@ -2,6 +2,7 @@ package com.sparta.myblog.service;
 
 import com.sparta.myblog.domain.Article;
 import com.sparta.myblog.dto.AddArticleRequest;
+import com.sparta.myblog.dto.ArticleResponse;
 import com.sparta.myblog.dto.UpdateArticleRequest;
 import com.sparta.myblog.repository.BlogRepository;
 import jakarta.transaction.Transactional;
@@ -36,11 +37,24 @@ public class BlogService {
     }
 
     //삭제 메서드
-    public void delete(long id, Long password) {
-        blogRepository.deleteById(id);
+    public ArticleResponse delete(long id, long password) {
+
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found" + id));
+
+        if (article.getPassword().equals(password)) {
+            blogRepository.deleteById(id);
+            return new ArticleResponse("삭제 되었습니다.");
+
+        } else {
+            return new ArticleResponse("다시 입력해주세요.");
 
 
+        }
     }
+
+
+
 
     // 업데이트 메서드
     @Transactional
