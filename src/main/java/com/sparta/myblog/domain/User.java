@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Table
+@Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -26,13 +26,13 @@ public class User implements UserDetails { //userDetails를 상속 받아 인증
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "userPassword")
-    private String userPassword;
+    @Column(name = "password")
+    private String password;
 
     @Builder
-    public User(String email, String userPassword, String auth) {
+    public User(String email, String password, String auth) {
         this.email = email;
-        this.userPassword = userPassword;
+        this.password = password;
     }
 
 
@@ -50,7 +50,7 @@ public class User implements UserDetails { //userDetails를 상속 받아 인증
 
     @Override //사용자의 패스워드를 반환
     public String getPassword() {
-        return userPassword;
+        return password;
     }
 
 
