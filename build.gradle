@@ -35,6 +35,14 @@ dependencies {
     // MySQL
     implementation 'mysql:mysql-connector-java:8.0.28'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+
+    //스프링 시큐리티를 사용하기 위한 스터터
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    //타임리프에서 스프링 시큐리티를 사용하기 위한 의존성 추가
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    //스프링 시큐리티를 테스트하기 위한 의존성 추가
+    testImplementation 'org.springframework.security:spring-security-test'
+
 }
 
 tasks.named('test') {
