@@ -34,7 +34,8 @@ dependencies {
 
     // MySQL
     implementation 'mysql:mysql-connector-java:8.0.28'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+//    runtimeOnly 'com.mysql:mysql-connector-j'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
     //스프링 시큐리티를 사용하기 위한 스터터
     implementation 'org.springframework.boot:spring-boot-starter-security'
