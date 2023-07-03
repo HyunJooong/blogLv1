@@ -23,10 +23,10 @@ public class User implements UserDetails { //userDetails를 상속 받아 인증
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true,length = 50)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password" , length = 50)
     private String password;
 
     @Builder
